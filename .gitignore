@@ -75,3 +75,6 @@ fastlane/test_output
 !*.xcworkspace/contents.xcworkspacedata
 /*.gcno
 *.xcworkspace
+*.xcuserstate
+Trivia.xcodeproj/project.xcworkspace/xcuserdata/yashrajgujar.xcuserdatad/UserInterfaceState.xcuserstate
+Trivia.xcodeproj/project.xcworkspace/xcuserdata/yashrajgujar.xcuserdatad/UserInterfaceState.xcuserstate
