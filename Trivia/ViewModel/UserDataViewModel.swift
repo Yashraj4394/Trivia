@@ -15,7 +15,7 @@ struct UserDataViewModel {
   }
   
   var userName : String {
-    return data.userName
+    return "Name: \(data.userName)"
   }
   
   var gameNumber : String {

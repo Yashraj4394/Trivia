@@ -43,7 +43,9 @@ class QuestionTwoVC: UIViewController {
     var answers = [Answers]()
     for x in selectedRows {
       //print(options[x.row])
-      answers.append(Answers(answer: questions.list[1].options[x.row]))
+      let value = questions.list[1].options[x.row]
+      let string = value.dropFirst(3)
+      answers.append(Answers(answer: String(string)))
     }
     updateDB(answers: answers)
     if let vc = storyboard?.instantiateViewController(withIdentifier: "SummaryVC") as? SummaryVC {

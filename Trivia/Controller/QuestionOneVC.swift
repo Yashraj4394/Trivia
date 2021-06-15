@@ -43,8 +43,8 @@ class QuestionOneVC: UIViewController {
         showAlert("Please choose your answer")
         return
       }
-      let selectedAnswer = questions.list[0].options[selectedRow]
-      updateQuestions(selectedAnswer: selectedAnswer)
+      let selectedAnswer = questions.list[0].options[selectedRow].dropFirst(3)
+      updateQuestions(selectedAnswer: String(selectedAnswer))
       if let vc = storyboard?.instantiateViewController(withIdentifier: "QuestionTwoVC") as? QuestionTwoVC {
         vc.userID = userID
         navigationController?.show(vc, sender: nil)
