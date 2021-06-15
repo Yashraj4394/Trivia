@@ -18,9 +18,10 @@
 		0D44F3332677474B00B8C198 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0D44F3312677474B00B8C198 /* LaunchScreen.storyboard */; };
 		0D44F3512677A41B00B8C198 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D44F3502677A41B00B8C198 /* Extensions.swift */; };
 		0D44F3572677A72300B8C198 /* QuestionOneVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D44F3562677A72300B8C198 /* QuestionOneVC.swift */; };
-		0D5792782677D8A900DA27ED /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5792772677D8A900DA27ED /* Defaults.swift */; };
 		0D57927B2677DA7700DA27ED /* DatabaseUpdates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D57927A2677DA7700DA27ED /* DatabaseUpdates.swift */; };
 		0D7266802677EDC5000CE3E1 /* HistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D72667F2677EDC5000CE3E1 /* HistoryTableViewCell.swift */; };
+		0D72668526784E13000CE3E1 /* UserDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D72668426784E13000CE3E1 /* UserDataViewModel.swift */; };
+		0D72668826784E98000CE3E1 /* CommonFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D72668726784E98000CE3E1 /* CommonFunctions.swift */; };
 		85B8F14D30D83448F395A6A1 /* Pods_Trivia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFAD3B36D505E4061B5DAEBB /* Pods_Trivia.framework */; };
 /* End PBXBuildFile section */
 
@@ -38,9 +39,10 @@
 		0D44F3342677474B00B8C198 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0D44F3502677A41B00B8C198 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		0D44F3562677A72300B8C198 /* QuestionOneVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionOneVC.swift; sourceTree = "<group>"; };
-		0D5792772677D8A900DA27ED /* Defaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
 		0D57927A2677DA7700DA27ED /* DatabaseUpdates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseUpdates.swift; sourceTree = "<group>"; };
 		0D72667F2677EDC5000CE3E1 /* HistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewCell.swift; sourceTree = "<group>"; };
+		0D72668426784E13000CE3E1 /* UserDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataViewModel.swift; sourceTree = "<group>"; };
+		0D72668726784E98000CE3E1 /* CommonFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonFunctions.swift; sourceTree = "<group>"; };
 		1B74988F5C97235DCBBE69BD /* Pods-Trivia.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Trivia.release.xcconfig"; path = "Target Support Files/Pods-Trivia/Pods-Trivia.release.xcconfig"; sourceTree = "<group>"; };
 		95D9119073B3434354574896 /* Pods-Trivia.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Trivia.debug.xcconfig"; path = "Target Support Files/Pods-Trivia/Pods-Trivia.debug.xcconfig"; sourceTree = "<group>"; };
 		AFAD3B36D505E4061B5DAEBB /* Pods_Trivia.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Trivia.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -87,10 +89,11 @@
 		0D44F3252677473400B8C198 /* Trivia */ = {
 			isa = PBXGroup;
 			children = (
-				0D7266822677F81F000CE3E1 /* DatabaseUpdates */,
 				0D215ABE2677CE6100806713 /* Model */,
-				0D44F3532677A6AC00B8C198 /* Controller */,
 				0D44F341267755C700B8C198 /* Views */,
+				0D72668A26785750000CE3E1 /* ViewModel */,
+				0D44F3532677A6AC00B8C198 /* Controller */,
+				0D7266822677F81F000CE3E1 /* DatabaseUpdates */,
 				0D44F3542677A6C300B8C198 /* Utilities */,
 				0D44F32F2677474B00B8C198 /* Assets.xcassets */,
 				0D44F3342677474B00B8C198 /* Info.plist */,
@@ -104,7 +107,7 @@
 			children = (
 				0D44F32C2677473400B8C198 /* Main.storyboard */,
 				0D44F3312677474B00B8C198 /* LaunchScreen.storyboard */,
-				0D72667F2677EDC5000CE3E1 /* HistoryTableViewCell.swift */,
+				0D72668B2678578D000CE3E1 /* Cells */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -125,7 +128,7 @@
 			isa = PBXGroup;
 			children = (
 				0D44F3502677A41B00B8C198 /* Extensions.swift */,
-				0D5792772677D8A900DA27ED /* Defaults.swift */,
+				0D72668726784E98000CE3E1 /* CommonFunctions.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -136,6 +139,22 @@
 				0D57927A2677DA7700DA27ED /* DatabaseUpdates.swift */,
 			);
 			path = DatabaseUpdates;
+			sourceTree = "<group>";
+		};
+		0D72668A26785750000CE3E1 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				0D72668426784E13000CE3E1 /* UserDataViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		0D72668B2678578D000CE3E1 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				0D72667F2677EDC5000CE3E1 /* HistoryTableViewCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		A666DF1E12B5F7DFF8BE51D1 /* Pods */ = {
@@ -269,12 +288,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0D5792782677D8A900DA27ED /* Defaults.swift in Sources */,
 				0D215AB82677B22800806713 /* HistoryVC.swift in Sources */,
+				0D72668526784E13000CE3E1 /* UserDataViewModel.swift in Sources */,
 				0D44F32B2677473400B8C198 /* ViewController.swift in Sources */,
 				0D57927B2677DA7700DA27ED /* DatabaseUpdates.swift in Sources */,
 				0D215AB52677B21D00806713 /* SummaryVC.swift in Sources */,
 				0D44F3512677A41B00B8C198 /* Extensions.swift in Sources */,
+				0D72668826784E98000CE3E1 /* CommonFunctions.swift in Sources */,
 				0D44F3272677473400B8C198 /* AppDelegate.swift in Sources */,
 				0D215AB22677B21200806713 /* QuestionTwoVC.swift in Sources */,
 				0D7266802677EDC5000CE3E1 /* HistoryTableViewCell.swift in Sources */,

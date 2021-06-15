@@ -14,8 +14,8 @@ class ViewController: UIViewController {
   @IBOutlet weak var nameTextField: UITextField!
   
   //MARK:- PROPERTIES
-  private var gameNumber = 0
   private let databaseRealm = DatabaseUpdates()
+  
   //MARK:- LIFECYCLE
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -25,7 +25,6 @@ class ViewController: UIViewController {
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     self.nameTextField.text = ""
-    self.getGameNumber()
   }
   
   //MARK:- ACTIONS
@@ -45,18 +44,7 @@ class ViewController: UIViewController {
   
   //MARK:- HELPERS
   private func updateDB(userName : String,userID:String){
-    let realm = try! Realm()
-    do {
-      try realm.write {
-        realm.add(UserData(userName: userName,userID: userID,gameNumber: gameNumber))
-      }
-    } catch {
-      print(error.localizedDescription)
-    }
-  }
-  
-  private func getGameNumber(){
-    gameNumber = databaseRealm.getGameNumber() + 1
+    databaseRealm.addUser(name: userName, userID: userID)
   }
 }
 

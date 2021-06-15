@@ -16,7 +16,8 @@ class SummaryVC: UIViewController {
   //MARK:- PROPERTIES
   private let databaseRealm = DatabaseUpdates()
   var userID : String = ""
-  var userData : UserData?{
+  
+  var userDataViewModel : UserDataViewModel? {
     didSet {
       summaryTableView.reloadData()
     }
@@ -44,14 +45,14 @@ class SummaryVC: UIViewController {
   
   @IBAction func historyTapped(_ sender: UIButton) {
     if let vc = storyboard?.instantiateViewController(withIdentifier: "HistoryVC") as? HistoryVC {
-      navigationController?.show(vc, sender: nil)
+      navigationController?.showDetailViewController(vc, sender: nil)
     }
   }
   
   //MARK:- HELPERS
   private func getSummary(){
     databaseRealm.fetchUserData(userID: userID) { (data) in
-      self.userData = data
+      self.userDataViewModel = UserDataViewModel(data: data)
       self.userNameLabel.text = "Hello , \(data.userName)"
     }
   }
@@ -75,15 +76,13 @@ extension SummaryVC : UITableViewDataSource{
       }
       return cell
     }()
-    
-    guard let data = self.userData else {return cell}
+    guard let model = userDataViewModel else {return cell}
     if indexPath.row == 0 {
-      cell.textLabel?.text = data.questionOne
-      cell.detailTextLabel?.text = data.answersOne.first?.answer ?? ""
+      cell.textLabel?.text = model.questionOne
+      cell.detailTextLabel?.text = model.answerOne
     } else if indexPath.row == 1 {
-      cell.textLabel?.text = data.questionTwo
-      let asd = Array(data.answersTwo).map({ $0.answer })
-        cell.detailTextLabel?.text = asd.joined(separator: ",")
+      cell.textLabel?.text = model.questionTwo
+      cell.detailTextLabel?.text = model.answerTwo
     }
     return cell
   }
@@ -91,7 +90,6 @@ extension SummaryVC : UITableViewDataSource{
 
 //MARK:- TABLEVIEW DELEGATE
 extension SummaryVC:UITableViewDelegate {
-  
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
     return 60
   }

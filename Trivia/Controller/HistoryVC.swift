@@ -14,7 +14,7 @@ class HistoryVC: UIViewController {
   @IBOutlet weak var historyTableView : UITableView!
   
   //MARK:- PROPERTIES
-  var userData : [UserData]? {
+  var userDataViewModel : [UserDataViewModel]? {
     didSet {
       historyTableView.reloadData()
     }
@@ -39,18 +39,8 @@ class HistoryVC: UIViewController {
   //MARK:- HELPERS
   private func fetchUsersData(){
     databaseRealm.fetchAllData { (data) in
-      self.userData = data
+      self.userDataViewModel = data
     }
-  }
-  
-  func getDate(time:Double)->String{
-    let dateFormatter = DateFormatter()
-    dateFormatter.timeStyle = DateFormatter.Style.medium //Set time style
-    dateFormatter.dateStyle = DateFormatter.Style.medium //Set date style
-    dateFormatter.timeZone = .current
-    let date = Date(timeIntervalSince1970: time)
-    let localDate = dateFormatter.string(from: date)
-    return localDate
   }
 }
 
@@ -61,22 +51,13 @@ extension HistoryVC : UITableViewDataSource{
   }
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return userData?.count ?? 0
+    return userDataViewModel?.count ?? 0
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: "HistoryTableViewCell", for: indexPath) as! HistoryTableViewCell
-    if let userData = self.userData {
-      let data = userData[indexPath.row]
-      cell.userNameLabel.text = "Name : \(data.userName)"
-      cell.gameNumberLabel.text = "Game: \(data.gameNumber)"
-      cell.timeStampLabel.text = getDate(time: data.timestamp)
-      cell.questionOneLabel.text = data.questionOne
-      cell.questionTwoLabel.text = data.questionTwo
-      let answerOneArray = Array(data.answersOne).map({ $0.answer })
-      cell.answerOneLabel.text = answerOneArray.joined()
-      let answerTwoArray = Array(data.answersTwo).map({ $0.answer })
-      cell.answerTwoLabel.text = answerTwoArray.joined(separator: ",")
+    if let vm = self.userDataViewModel {
+      cell.setData(vm[indexPath.row])
     }
     return cell
   }
@@ -84,7 +65,6 @@ extension HistoryVC : UITableViewDataSource{
 
 //MARK:- TABLEVIEW DELEGATE
 extension HistoryVC:UITableViewDelegate {
-  
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
     return UITableView.automaticDimension
   }

@@ -22,4 +22,15 @@ class HistoryTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
     }
+  
+  //MARK:- HELPERS
+  func setData(_ vm : UserDataViewModel){
+    userNameLabel.text = vm.userName
+    gameNumberLabel.text = vm.gameNumber
+    timeStampLabel.text = vm.timeStamp
+    questionOneLabel.text = vm.questionOne
+    questionTwoLabel.text = vm.questionTwo
+    answerOneLabel.text = vm.answerOne
+    answerTwoLabel.text = vm.answerTwo
+  }
 }

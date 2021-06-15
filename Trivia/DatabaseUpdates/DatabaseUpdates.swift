@@ -8,6 +8,19 @@
 import RealmSwift
 
 class DatabaseUpdates : NSObject {
+  
+  func addUser(name : String,userID : String){
+    let gameNumber = self.getGameNumber() + 1
+    let realm = try! Realm()
+    do {
+      try realm.write {
+        realm.add(UserData(userName: name,userID: userID,gameNumber: gameNumber))
+      }
+    } catch {
+      print(error.localizedDescription)
+    }
+    
+  }
   func updateQuestions(userID :String,answer:Answers,question : String){
     let predicate = NSPredicate(format: "userID = '\(userID)'")
     let realm = try! Realm()
@@ -46,19 +59,19 @@ class DatabaseUpdates : NSObject {
     }
   }
   
-  func fetchAllData(completion : @escaping([UserData])->Void){
+  func fetchAllData(completion : @escaping([UserDataViewModel])->Void){
     let realm = try! Realm()
     let data = realm.objects(UserData.self)
-    var userData = [UserData]()
+    var viewModel = [UserDataViewModel]()
     for x in data {
-      userData.append(x)
+      viewModel.append(UserDataViewModel(data: x))
     }
-    completion(userData)
+    completion(viewModel)
   }
   
   func getGameNumber()->Int{
     let realm = try! Realm()
-    if let data = realm.objects(UserData.self).first {
+    if let data = realm.objects(UserData.self).sorted(byKeyPath: "timestamp", ascending: false).first {
       return data.gameNumber
     } else {
       return 0
