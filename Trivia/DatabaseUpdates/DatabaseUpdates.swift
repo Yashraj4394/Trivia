@@ -61,7 +61,7 @@ class DatabaseUpdates : NSObject {
   
   func fetchAllData(completion : @escaping([UserDataViewModel])->Void){
     let realm = try! Realm()
-    let data = realm.objects(UserData.self)
+    let data = realm.objects(UserData.self).sorted(byKeyPath: "timestamp", ascending: false)
     var viewModel = [UserDataViewModel]()
     for x in data {
       viewModel.append(UserDataViewModel(data: x))
