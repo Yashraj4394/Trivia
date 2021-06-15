@@ -14,14 +14,15 @@ class QuestionTwoVC: UIViewController {
   @IBOutlet weak var optionsTableView: UITableView!
   
   //MARK:- PROPERTIES
-  private let options = ["A) White","B) Yellow","C) Orange","D) Green"]
   var userID : String = ""
   private let databaseRealm = DatabaseUpdates()
+  private let questions = QuestionBank()
   
   //MARK:- LIFECYLE
   override func viewDidLoad() {
     super.viewDidLoad()
     self.configureTableView()
+    questionLabel.text = questions.list[1].question
   }
   
   //MARK:- CONFIGURE
@@ -38,11 +39,11 @@ class QuestionTwoVC: UIViewController {
       showAlert("Please choose your answer")
       return
     }
-    //      print(selectedRows)
+    //print(selectedRows)
     var answers = [Answers]()
     for x in selectedRows {
-      print(options[x.row])
-      answers.append(Answers(answer: options[x.row]))
+      //print(options[x.row])
+      answers.append(Answers(answer: questions.list[1].options[x.row]))
     }
     updateDB(answers: answers)
     if let vc = storyboard?.instantiateViewController(withIdentifier: "SummaryVC") as? SummaryVC {
@@ -64,12 +65,12 @@ extension QuestionTwoVC : UITableViewDataSource{
   }
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return options.count
+    return questions.list[1].options.count
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-    cell.textLabel?.text = options[indexPath.row]
+    cell.textLabel?.text = questions.list[1].options[indexPath.row]
     cell.selectionStyle = .none
     return cell
   }
@@ -95,9 +96,4 @@ extension QuestionTwoVC:UITableViewDelegate {
       }
     }
   }
-}
-
-//MARK:-
-extension QuestionTwoVC{
-  
 }

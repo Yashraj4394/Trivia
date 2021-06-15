@@ -15,16 +15,17 @@ class QuestionOneVC: UIViewController {
   @IBOutlet weak var optionsTableView: UITableView!
   
   //MARK:- PROPERTIES
-  private let options = ["A) Sachin Tendulkar","B) Virat Kolli","C) Adam Gilchirst","D) Jacques Kallis"]
   private var selectedRow : Int = 0
   var userID : String = ""
   private let databaseRealm = DatabaseUpdates()
+  private let questions = QuestionBank()
   
   //MARK:- LIFECYLE
   override func viewDidLoad() {
     super.viewDidLoad()
     configureTableView()
-        navigationItem.setHidesBackButton(true, animated: true)
+    navigationItem.setHidesBackButton(true, animated: true)
+    questionLabel.text = questions.list.first?.question
   }
   
   //MARK:- CONFIGURE
@@ -42,7 +43,8 @@ class QuestionOneVC: UIViewController {
         showAlert("Please choose your answer")
         return
       }
-      updateQuestions(selectedAnswer: options[selectedRow])
+      let selectedAnswer = questions.list[0].options[selectedRow]
+      updateQuestions(selectedAnswer: selectedAnswer)
       if let vc = storyboard?.instantiateViewController(withIdentifier: "QuestionTwoVC") as? QuestionTwoVC {
         vc.userID = userID
         navigationController?.show(vc, sender: nil)
@@ -65,12 +67,12 @@ extension QuestionOneVC : UITableViewDataSource{
   }
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return options.count
+    return questions.list[0].options.count
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-    cell.textLabel?.text = options[indexPath.row]
+    cell.textLabel?.text = questions.list[0].options[indexPath.row]
     cell.selectionStyle = .none
     return cell
   }
@@ -93,11 +95,6 @@ extension QuestionOneVC:UITableViewDelegate {
     let cell = tableView.cellForRow(at: indexPath)
     cell?.accessoryType = .none
   }
-}
-
-//MARK:-
-extension QuestionOneVC {
-  
 }
 
 
